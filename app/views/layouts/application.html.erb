@@ -5,24 +5,65 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-
   <body>
-    <%= render 'shared/navbar' if current_user %>
-    <div class="container">
+    <!--Navigation Bar-->
+    <nav class="navbar navbar-light bg-light d-flex">
+      <div class="container">
+        <div class="logo">
+          <a class="navbar-brand" href="#">
+            <span class="fa-stack my-class">
+              <i class="fas fa-circle fa-stack-2x"></i>
+              <i class="fas fa-camera fa-inverse fa-stack-1x"></i>
+            </span>
+            Instagram
+          </a>
+        </div>
+        <div class="m-auto">
+          <form class="form-inline search-form">
+            <input class="form-control mr-sm-2" type="search" placeholder="@search" aria-label="Search">
+          </form>
+        </div>
+        <div class="user-section">
+          <a><i class="fa fa-compass"></i></a>
+          <a><i class="fa fa-heart"></i></a>
+          <% if user_signed_in? %>
+            <a href="<%= user_path(current_user)%>">
+              <i class="fa fa-user"></i>
+            </a>
+          <% else %>
+            <a href="<%= new_user_session_path%>"">
+              <i class="fa fa-sign-in"></i>
+            </a>
+          <% end %>
+        </div>
+      </div>
+    </nav>
+    <!--Main content-->
+    <main class="container" style="min-height: 500px;">
       <%= yield %>
-    </div>
-    <%= render 'shared/footer' %>
-    <% if flash.any? %>
-      <script type="text/javascript">
-        <% flash.each do |key, value| %>
-          <% type = key.to_s.gsub('alert', 'error').gsub('notice', 'success') %>
-          toastr.<%= type %>('<%= value %>')
-        <% end %>
-      </script>
-    <% end %>
+    </main>
+    <!--Footer-->
+    <footer class="container footer">
+      <nav class="navbar d-flex">
+        <ul>
+          <li>ABOUT US
+          </li>
+          <li>SUPPORT</li>
+          <li>PRESS</li>
+          <li>API</li>
+          <li>JOBS</li>
+          <li>PRIVACY</li>
+          <li>TERMS</li>
+          <li>DIRECTORY</li>
+          <li>PROFILES</li>
+          <li>HASHTAGS</li>
+          <li>LANGUAGE</li>
+        </ul>
+        <p> © 2018 INSTAGRAM </p>
+      </nav>
+    </footer>
   </body>
 </html>
